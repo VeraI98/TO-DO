@@ -2,12 +2,10 @@ import { useState } from 'react'
 import TaskList from './components/TaskList'
 import NewTaskForm from './components/NewTaskForm'
 import Footer from './components/Footer'
-import tasksData from './tasks' // если вынесешь JSON
 
 function App() {
-  const [tasks, setTasks] = useState(tasksData) // или твой массив
+  const [tasks, setTasks] = useState([])
   const [filter, setFilter] = useState('all')
-
 
   const addTask = (text) => {
     const newTask = {
@@ -17,7 +15,6 @@ function App() {
       editing: false,
       created: new Date(),
     }
-
     setTasks([newTask, ...tasks])
   }
 
@@ -40,20 +37,17 @@ function App() {
     ))
   }
 
-
-  const updateTask = (id, newText) => {
+  const updateTask = (id, text) => {
     setTasks(tasks.map(task =>
       task.id === id
-        ? { ...task, description: newText, editing: false }
+        ? { ...task, description: text, editing: false }
         : task
     ))
   }
 
-
   const clearCompleted = () => {
     setTasks(tasks.filter(task => !task.completed))
   }
-
 
   const filteredTasks = tasks.filter(task => {
     if (filter === 'active') return !task.completed
@@ -61,14 +55,13 @@ function App() {
     return true
   })
 
-
-  const activeCount = tasks.filter(task => !task.completed).length
+  const activeCount = tasks.filter(t => !t.completed).length
 
   return (
     <section className="todoapp">
       <header className="header">
         <h1>todos</h1>
-        <NewTaskForm addTask={addTask} />
+        <NewTaskForm onAdd={addTask} />
       </header>
 
       <section className="main">
@@ -79,11 +72,11 @@ function App() {
           onEdit={editTask}
           onUpdate={updateTask}
         />
-
         <Footer
+          count={activeCount}
+          filter={filter}
           setFilter={setFilter}
-          clearCompleted={clearCompleted}
-          activeCount={activeCount}
+          onClear={clearCompleted}
         />
       </section>
     </section>
