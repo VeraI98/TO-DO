@@ -1,17 +1,39 @@
-function TasksFilter({ setFilter }) {
+import PropTypes from 'prop-types'
+
+function TasksFilter({ filter, setFilter }) {
     return (
         <ul className="filters">
         <li>
-            <button onClick={() => setFilter('all')}>All</button>
+            <button
+            className={filter === 'all' ? 'selected' : ''}
+            onClick={() => setFilter('all')}
+            >
+            All
+            </button>
         </li>
         <li>
-            <button onClick={() => setFilter('active')}>Active</button>
+            <button
+            className={filter === 'active' ? 'selected' : ''}
+            onClick={() => setFilter('active')}
+            >
+            Active
+            </button>
         </li>
         <li>
-            <button onClick={() => setFilter('completed')}>Completed</button>
+            <button
+            className={filter === 'completed' ? 'selected' : ''}
+            onClick={() => setFilter('completed')}
+            >
+            Completed
+            </button>
         </li>
         </ul>
     )
+}
+
+TasksFilter.propTypes = {
+    filter: PropTypes.string,
+    setFilter: PropTypes.func,
 }
 
 export default TasksFilter
