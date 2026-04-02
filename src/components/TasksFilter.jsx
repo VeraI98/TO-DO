@@ -1,14 +1,14 @@
-function TasksFilter() {
+function TasksFilter({ setFilter }) {
     return (
         <ul className="filters">
         <li>
-            <button className="selected">All</button>
+            <button onClick={() => setFilter('all')}>All</button>
         </li>
         <li>
-            <button>Active</button>
+            <button onClick={() => setFilter('active')}>Active</button>
         </li>
         <li>
-            <button>Completed</button>
+            <button onClick={() => setFilter('completed')}>Completed</button>
         </li>
         </ul>
     )

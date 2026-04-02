@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function Task({
     id,
@@ -11,6 +11,10 @@ function Task({
     onUpdate,
     }) {
     const [value, setValue] = useState(description)
+
+    useEffect(() => {
+        setValue(description)
+    }, [description])
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
@@ -51,6 +55,7 @@ function Task({
             value={value}
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={handleKeyDown}
+            onBlur={() => onUpdate(id, value)}
             autoFocus
             />
         )}
