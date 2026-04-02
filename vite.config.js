@@ -2,6 +2,6 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  base: '/TO-DO/',
   plugins: [react()],
+  base: '/TO-DO/', // https://github.com/VeraI98/TO-DO.git
 })
